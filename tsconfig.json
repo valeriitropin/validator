@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "skipLibCheck": true,
+      "declaration": false,
+      "noImplicitAny": false,
+      "removeComments": true,
+      "noLib": false,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "target": "es2017",
+      "lib": ["es2015", "es2017"],
+      "sourceMap": true,
+      "allowJs": true,
+      "outDir": "dist",
+      "resolveJsonModule": true,
+      "strict": true,
+      "strictPropertyInitialization": false  /* Enable strict checking of property initialization in classes. */
+    },
+    "include": [
+      "src/**/*"
+    ],
+    "exclude": [
+      "**/*.spec.ts"
+    ]
+  }
+  
