@@ -46,7 +46,7 @@ export class Validators {
     throw new ValidationError(`${field} expected to be an array.`);
   }
 
-  static async isObject(field: string, value: any) {
+  static async isObject(field: string | number, value: any) {
     if (value !== null && (typeof value === 'function' || typeof value === 'object')) {
       return value;
     }
