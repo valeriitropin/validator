@@ -3,9 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const validation_error_1 = require("./validation.error");
 const functions_1 = require("./functions");
 class Validators {
-    static required(continueIfEmpty = false, breakOnEmpty = false) {
+    static required(continueIfEmpty = false, breakOnEmpty = false, emptyValues = [undefined, null]) {
         return async (field, value) => {
-            const isEmpty = value === undefined;
+            const isEmpty = emptyValues.includes(value);
             if (isEmpty && breakOnEmpty) {
                 throw undefined;
             }

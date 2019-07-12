@@ -1,6 +1,6 @@
 import { ValidationFunction } from './functions';
 export declare class Validators {
-    static required(continueIfEmpty?: boolean, breakOnEmpty?: boolean): ValidationFunction;
+    static required(continueIfEmpty?: boolean, breakOnEmpty?: boolean, emptyValues?: any[]): ValidationFunction;
     static isNumber(field: string | number, value: any): Promise<number>;
     static isString(field: string | number, value: any): Promise<string>;
     static isBoolean(field: string | number, value: any): Promise<boolean>;

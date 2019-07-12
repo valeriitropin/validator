@@ -2,9 +2,9 @@ import { ValidationError } from './validation.error';
 import { buildChain, ValidationFunction, resultHandler } from './functions';
 
 export class Validators {
-  static required(continueIfEmpty = false, breakOnEmpty = false): ValidationFunction {
+  static required(continueIfEmpty = false, breakOnEmpty = false, emptyValues: any[] = [undefined, null]): ValidationFunction {
     return async(field: string | number, value: any) => {
-      const isEmpty = value === undefined;
+      const isEmpty = emptyValues.includes(value);
       if (isEmpty && breakOnEmpty) {
         throw undefined;
       }
