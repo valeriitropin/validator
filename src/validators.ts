@@ -54,7 +54,7 @@ export class Validators {
   }
 
   static minLength(min: number) {
-    return async(field: string, value: string) => {
+    return async(field: string | number, value: string) => {
       if (value.length >= min) {
         return value;
       }
@@ -63,7 +63,7 @@ export class Validators {
   }
 
   static maxLength(max: number) {
-    return async(field: string, value: string) => {
+    return async(field: string | number, value: string) => {
       if (value.length <= max) {
         return value;
       }
@@ -72,7 +72,7 @@ export class Validators {
   }
 
   static min(min: number) {
-    return async(field: string, value: number) => {
+    return async(field: string | number, value: number) => {
       if (value >= min) {
         return value;
       }
@@ -81,7 +81,7 @@ export class Validators {
   }
 
   static max(max: number) {
-    return async(field: string, value: number) => {
+    return async(field: string | number, value: number) => {
       if (value <= max) {
         return value;
       }
@@ -90,7 +90,7 @@ export class Validators {
   }
 
   static default(defaultValue: any): ValidationFunction {
-    return async(field, value) => {
+    return async(field: string | number, value) => {
       if (value === undefined) {
         return defaultValue;
       }
@@ -99,7 +99,7 @@ export class Validators {
   }
 
   static in(values: any[]) {
-    return async(field: string, value: any) => {
+    return async(field: string | number, value: any) => {
       if (values.includes(value)) {
         return value;
       }
@@ -108,7 +108,7 @@ export class Validators {
   }
 
   static each(rules: ValidationFunction[]): ValidationFunction {
-    return async(field, value, args) => {
+    return async(field: string | number, value: any[], args) => {
       const result: any[] = [];
       const validationErrors: {} = {};
       const errors: Error[] = [];
@@ -135,7 +135,7 @@ export class Validators {
   }
 
   static object(rules: { [key: string]: ValidationFunction[] }): ValidationFunction {
-    return async(field, value, args) => {
+    return async(field: string | number, value, args) => {
       const result = {};
       const validationErrors = {};
       const errors: Error[] = [];

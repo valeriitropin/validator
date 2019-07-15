@@ -6,12 +6,12 @@ export declare class Validators {
     static isBoolean(field: string | number, value: any): Promise<boolean>;
     static isArray(field: string | number, value: any): Promise<any[]>;
     static isObject(field: string | number, value: any): Promise<any>;
-    static minLength(min: number): (field: string, value: string) => Promise<string>;
-    static maxLength(max: number): (field: string, value: string) => Promise<string>;
-    static min(min: number): (field: string, value: number) => Promise<number>;
-    static max(max: number): (field: string, value: number) => Promise<number>;
+    static minLength(min: number): (field: string | number, value: string) => Promise<string>;
+    static maxLength(max: number): (field: string | number, value: string) => Promise<string>;
+    static min(min: number): (field: string | number, value: number) => Promise<number>;
+    static max(max: number): (field: string | number, value: number) => Promise<number>;
     static default(defaultValue: any): ValidationFunction;
-    static in(values: any[]): (field: string, value: any) => Promise<any>;
+    static in(values: any[]): (field: string | number, value: any) => Promise<any>;
     static each(rules: ValidationFunction[]): ValidationFunction;
     static object(rules: {
         [key: string]: ValidationFunction[];
