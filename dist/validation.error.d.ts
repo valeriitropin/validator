@@ -1,8 +1,8 @@
 export declare class ValidationError extends Error {
     messages: string | string[] | {
-        [key: string]: ValidationError;
+        [key: string]: string;
     };
     constructor(messages: string | string[] | {
-        [key: string]: ValidationError;
+        [key: string]: string;
     });
 }

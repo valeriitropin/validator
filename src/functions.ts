@@ -10,7 +10,7 @@ export async function buildChain(field: string | number, value: any, rules: Vali
   return promise;
 }
 
-export async function resultHandler(result: any, validationErrors: { [key: string]: ValidationError }, errors: Error[]) {
+export async function resultHandler(result: any, validationErrors: { [key: string]: string }, errors: Error[]) {
   if (errors.length) {
     return Promise.reject(errors);
   }
