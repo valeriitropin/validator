@@ -29,7 +29,7 @@ class Validators {
     }
     static async isBoolean(field, value) {
         if (typeof value === 'boolean') {
-            return true;
+            return value;
         }
         throw new validation_error_1.ValidationError(`${field} expected to be a boolean.`);
     }

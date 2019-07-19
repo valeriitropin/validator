@@ -33,7 +33,7 @@ export class Validators {
 
   static async isBoolean(field: string | number, value: any) {
     if (typeof value === 'boolean') {
-      return true;
+      return value;
     }
 
     throw new ValidationError(`${field} expected to be a boolean.`);
