@@ -2,7 +2,12 @@ import { ValidationError } from './validation.error';
 import { buildChain, ValidationFunction, resultHandler } from './functions';
 
 export class Validators {
-  static required(continueIfEmpty = false, breakOnEmpty = false, emptyValues: any[] = [undefined, null]): ValidationFunction {
+  static required(options: RequiredValidatorOptions = {}): ValidationFunction {
+    const {
+      continueIfEmpty = false,
+      breakOnEmpty = false,
+      emptyValues = [undefined, null, ''],
+    } = options;
     return async(field: string | number, value: any) => {
       const isEmpty = emptyValues.includes(value);
       if (isEmpty && breakOnEmpty) {
@@ -17,11 +22,17 @@ export class Validators {
   }
 
   // Types
-  static async isNumber(field: string | number, value: any) {
-    if (typeof value === 'number') {
+  static async isNumber(options: NumberValidatorOptions = {}) {
+    const { integer } = options;
+    return (field: string | number, value: any) => {
+      if (typeof value !== 'number') {
+        throw new ValidationError(`${field} expected to be a number.`);
+      }
+      if (integer && !Number.isInteger(value)) {
+        throw new ValidationError(`${field} expected to be an integer number.`);
+      }
       return value;
     }
-    throw new ValidationError(`${field} expected to be a number.`);
   }
 
   static async isString(field: string | number, value: any) {
@@ -160,4 +171,16 @@ export class Validators {
         .then(() => resultHandler(result, validationErrors, errors));
     };
   }
+}
+
+export interface ValidatorOptions { }
+
+export interface RequiredValidatorOptions extends ValidatorOptions {
+  continueIfEmpty?: boolean;
+  breakOnEmpty?: boolean;
+  emptyValues?: any[];
+}
+
+export interface NumberValidatorOptions extends ValidatorOptions {
+  integer?: boolean,
 }
