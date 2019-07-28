@@ -58,7 +58,7 @@ export class Validators {
   }
 
   static async isObject(field: string | number, value: any) {
-    if (value !== null && (typeof value === 'function' || typeof value === 'object')) {
+    if (value !== null && !Array.isArray(value) && typeof value === 'object') {
       return value;
     }
     throw new ValidationError(`${field} expected to be an object.`);
