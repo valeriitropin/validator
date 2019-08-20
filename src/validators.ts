@@ -5,12 +5,12 @@ export class Validators {
   static required(options: RequiredValidatorOptions = {}): ValidationFunction {
     const {
       continueIfEmpty = false,
-      breakOnEmpty = false,
+      stopOnEmpty = false,
       emptyValues = [undefined, null, ''],
     } = options;
     return async(field: string | number, value: any) => {
       const isEmpty = emptyValues.includes(value);
-      if (isEmpty && breakOnEmpty) {
+      if (isEmpty && stopOnEmpty) {
         throw undefined;
       }
       if (isEmpty && !continueIfEmpty) {
@@ -62,6 +62,15 @@ export class Validators {
       return value;
     }
     throw new ValidationError(`${field} expected to be an object.`);
+  }
+
+  static len(length: number) {
+    return async(field: string | number, value: string) => {
+      if (value.length === length) {
+        return value;
+      }
+      throw new ValidationError(`${field} length must be equal ${length}.`);
+    }
   }
 
   static minLength(min: number) {
@@ -177,7 +186,7 @@ export interface ValidatorOptions { }
 
 export interface RequiredValidatorOptions extends ValidatorOptions {
   continueIfEmpty?: boolean;
-  breakOnEmpty?: boolean;
+  stopOnEmpty?: boolean;
   emptyValues?: any[];
 }
 

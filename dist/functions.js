@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const validation_error_1 = require("./validation.error");
-async function buildChain(field, value, rules, args) {
+function buildChain(field, value, rules, args) {
     let promise = Promise.resolve(value);
     for (const rule of rules) {
         promise = promise.then(_value => rule(field, _value, args));

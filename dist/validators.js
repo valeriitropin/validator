@@ -3,10 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const validation_error_1 = require("./validation.error");
 const functions_1 = require("./functions");
 class Validators {
-    static required(continueIfEmpty = false, breakOnEmpty = false, emptyValues = [undefined, null]) {
+    static required(options = {}) {
+        const { continueIfEmpty = false, stopOnEmpty = false, emptyValues = [undefined, null, ''], } = options;
         return async (field, value) => {
             const isEmpty = emptyValues.includes(value);
-            if (isEmpty && breakOnEmpty) {
+            if (isEmpty && stopOnEmpty) {
                 throw undefined;
             }
             if (isEmpty && !continueIfEmpty) {
@@ -15,11 +16,17 @@ class Validators {
             return value;
         };
     }
-    static async isNumber(field, value) {
-        if (typeof value === 'number') {
+    static async isNumber(options = {}) {
+        const { integer } = options;
+        return (field, value) => {
+            if (typeof value !== 'number') {
+                throw new validation_error_1.ValidationError(`${field} expected to be a number.`);
+            }
+            if (integer && !Number.isInteger(value)) {
+                throw new validation_error_1.ValidationError(`${field} expected to be an integer number.`);
+            }
             return value;
-        }
-        throw new validation_error_1.ValidationError(`${field} expected to be a number.`);
+        };
     }
     static async isString(field, value) {
         if (typeof value === 'string') {
@@ -40,10 +47,18 @@ class Validators {
         throw new validation_error_1.ValidationError(`${field} expected to be an array.`);
     }
     static async isObject(field, value) {
-        if (value !== null && (typeof value === 'function' || typeof value === 'object')) {
+        if (value !== null && !Array.isArray(value) && typeof value === 'object') {
             return value;
         }
         throw new validation_error_1.ValidationError(`${field} expected to be an object.`);
+    }
+    static len(length) {
+        return async (field, value) => {
+            if (value.length === length) {
+                return value;
+            }
+            throw new validation_error_1.ValidationError(`${field} length must be equal ${length}.`);
+        };
     }
     static minLength(min) {
         return async (field, value) => {
