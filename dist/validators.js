@@ -17,7 +17,7 @@ class Validators {
         };
     }
     static async isNumber(options = {}) {
-        const { integer } = options;
+        const { integer = false } = options;
         return (field, value) => {
             if (typeof value !== 'number') {
                 throw new validation_error_1.ValidationError(`${field} expected to be a number.`);
