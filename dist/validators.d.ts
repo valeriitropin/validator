@@ -1,7 +1,7 @@
 import { ValidationFunction } from './functions';
 export declare class Validators {
     static required(options?: RequiredValidatorOptions): ValidationFunction;
-    static isNumber(options?: NumberValidatorOptions): Promise<(field: string | number, value: any) => number>;
+    static isNumber(options?: NumberValidatorOptions): ValidationFunction;
     static isString(field: string | number, value: any): Promise<string>;
     static isBoolean(field: string | number, value: any): Promise<boolean>;
     static isArray(field: string | number, value: any): Promise<any[]>;

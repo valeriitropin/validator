@@ -22,9 +22,9 @@ export class Validators {
   }
 
   // Types
-  static async isNumber(options: NumberValidatorOptions = {}) {
+  static isNumber(options: NumberValidatorOptions = {}): ValidationFunction {
     const { integer = false } = options;
-    return (field: string | number, value: any) => {
+    return async (field: string | number, value: any) => {
       if (typeof value !== 'number') {
         throw new ValidationError(`${field} expected to be a number.`);
       }
