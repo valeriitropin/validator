@@ -1,1 +1,4 @@
-export declare function inArray(values: any[]): (field: string | number, value: any) => Promise<any>;
+export declare function inArray(options: InArrayOptions): (field: string | number, value: any) => Promise<any>;
+export interface InArrayOptions {
+    values: any[];
+}

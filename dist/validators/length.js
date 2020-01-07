@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const validation_error_1 = require("../validation.error");
-function length(length) {
+function length(options) {
+    const { length } = options;
     return async (field, value) => {
         if (value.length === length) {
             return value;

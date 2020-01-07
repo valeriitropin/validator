@@ -1,2 +1,5 @@
 import { ValidationFunction } from '../functions';
-export declare function defaultValue(defaultValue: any): ValidationFunction;
+export declare function defaultValue(options: DefaultValueOptions): ValidationFunction;
+export interface DefaultValueOptions {
+    defaultValue: any;
+}

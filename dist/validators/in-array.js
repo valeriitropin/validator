@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const validation_error_1 = require("../validation.error");
-function inArray(values) {
+function inArray(options) {
+    const { values } = options;
     return async (field, value) => {
         if (values.includes(value)) {
             return value;

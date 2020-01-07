@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const validation_error_1 = require("../validation.error");
-function min(min) {
+function min(options) {
+    const { min } = options;
     return async (field, value) => {
         if (value >= min) {
             return value;

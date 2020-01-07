@@ -12,4 +12,5 @@ export * from './max-length';
 export * from './min';
 export * from './min-length';
 export * from './object';
+export * from './regex';
 export * from './required';

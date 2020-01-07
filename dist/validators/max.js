@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const validation_error_1 = require("../validation.error");
-function max(max) {
+function max(options) {
+    const { max } = options;
     return async (field, value) => {
         if (value <= max) {
             return value;

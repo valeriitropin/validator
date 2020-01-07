@@ -1,1 +1,4 @@
-export declare function min(min: number): (field: string | number, value: number) => Promise<number>;
+export declare function min(options: MinOptions): (field: string | number, value: number) => Promise<number>;
+export interface MinOptions {
+    min: number;
+}
