@@ -6,6 +6,7 @@ export function required(options: RequiredValidatorOptions = {}): ValidationFunc
     continueIfEmpty = false,
     stopOnEmpty = false,
     emptyValues = [undefined, null, ''],
+    message,
   } = options;
 
   return async(field: string | number, value: any) => {
@@ -13,8 +14,10 @@ export function required(options: RequiredValidatorOptions = {}): ValidationFunc
     if (isEmpty && stopOnEmpty) {
       throw undefined;
     }
+
     if (isEmpty && !continueIfEmpty) {
-      throw new ValidationError(`${field} is required.`);
+      const _message = message || `${field} is required.`;
+      throw new ValidationError(_message);
     }
 
     return value;
@@ -25,4 +28,5 @@ export interface RequiredValidatorOptions {
   continueIfEmpty?: boolean;
   stopOnEmpty?: boolean;
   emptyValues?: any[];
+  message?: string;
 }

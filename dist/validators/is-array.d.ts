@@ -1,1 +1,4 @@
-export declare function isArray(field: string | number, value: any): Promise<any[]>;
+export declare function isArray(options?: IsArrayOptions): (field: string | number, value: any) => Promise<any[]>;
+export interface IsArrayOptions {
+    message?: string;
+}

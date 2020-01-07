@@ -2,12 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const validation_error_1 = require("../validation.error");
 function inArray(options) {
-    const { values } = options;
+    const { values, message } = options;
     return async (field, value) => {
         if (values.includes(value)) {
             return value;
         }
-        throw new validation_error_1.ValidationError(`${field} is not in ${values}.`);
+        const _message = message || `${field} is not in ${values}.`;
+        throw new validation_error_1.ValidationError(_message);
     };
 }
 exports.inArray = inArray;

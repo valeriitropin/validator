@@ -2,12 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const validation_error_1 = require("../validation.error");
 function min(options) {
-    const { min } = options;
+    const { min, message } = options;
     return async (field, value) => {
         if (value >= min) {
             return value;
         }
-        throw new validation_error_1.ValidationError(`${field} must be no less than ${min}.`);
+        const _message = message || `${field} must be no less than ${min}.`;
+        throw new validation_error_1.ValidationError(_message);
     };
 }
 exports.min = min;

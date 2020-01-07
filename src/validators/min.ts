@@ -1,16 +1,19 @@
 import { ValidationError } from '../validation.error';
 
 export function min(options: MinOptions) {
-  const { min } = options;
+  const { min, message } = options;
 
   return async(field: string | number, value: number) => {
     if (value >= min) {
       return value;
     }
-    throw new ValidationError(`${field} must be no less than ${min}.`);
+
+    const _message = message || `${field} must be no less than ${min}.`;
+    throw new ValidationError(_message);
   }
 }
 
 export interface MinOptions {
   min: number;
+  message?: string;
 }

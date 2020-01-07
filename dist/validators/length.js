@@ -2,12 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const validation_error_1 = require("../validation.error");
 function length(options) {
-    const { length } = options;
+    const { length, message } = options;
     return async (field, value) => {
         if (value.length === length) {
             return value;
         }
-        throw new validation_error_1.ValidationError(`${field} length must be equal ${length}.`);
+        const _message = message || `${field} length must be equal ${length}.`;
+        throw new validation_error_1.ValidationError(_message);
     };
 }
 exports.length = length;

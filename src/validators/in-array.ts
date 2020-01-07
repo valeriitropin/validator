@@ -1,16 +1,19 @@
 import { ValidationError } from '../validation.error';
 
 export function inArray(options: InArrayOptions) {
-  const { values } = options;
+  const { values, message } = options;
 
   return async(field: string | number, value: any) => {
     if (values.includes(value)) {
       return value;
     }
-    throw new ValidationError(`${field} is not in ${values}.`);
+
+    const _message = message || `${field} is not in ${values}.`;
+    throw new ValidationError(_message);
   }
 }
 
 export interface InArrayOptions {
   values: any[];
+  message?: string;
 }

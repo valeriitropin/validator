@@ -4,4 +4,5 @@ export interface RequiredValidatorOptions {
     continueIfEmpty?: boolean;
     stopOnEmpty?: boolean;
     emptyValues?: any[];
+    message?: string;
 }

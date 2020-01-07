@@ -1,9 +1,16 @@
 import { ValidationError } from '../validation.error';
 
-export async function isBoolean(field: string | number, value: any) {
-  if (typeof value === 'boolean') {
-    return value;
-  }
+export function isBoolean(options: IsBooleanOptions = {}) {
+  return async(field: string | number, value: any) => {
+    if (typeof value === 'boolean') {
+      return value;
+    }
 
-  throw new ValidationError(`${field} expected to be a boolean.`);
+    const _message = options.message || `${field} expected to be a boolean.`;
+    throw new ValidationError(_message);
+  }
+}
+
+export interface IsBooleanOptions {
+  message?: string;
 }

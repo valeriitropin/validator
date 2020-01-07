@@ -1,11 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const validation_error_1 = require("../validation.error");
-async function isObject(field, value) {
-    if (value !== null && !Array.isArray(value) && typeof value === 'object') {
-        return value;
-    }
-    throw new validation_error_1.ValidationError(`${field} expected to be an object.`);
+function isObject(options = {}) {
+    return async (field, value) => {
+        if (value !== null && !Array.isArray(value) && typeof value === 'object') {
+            return value;
+        }
+        const message = options.message || `${field} expected to be an object.`;
+        throw new validation_error_1.ValidationError(message);
+    };
 }
 exports.isObject = isObject;
 //# sourceMappingURL=is-object.js.map

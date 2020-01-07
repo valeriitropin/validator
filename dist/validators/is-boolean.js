@@ -1,11 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const validation_error_1 = require("../validation.error");
-async function isBoolean(field, value) {
-    if (typeof value === 'boolean') {
-        return value;
-    }
-    throw new validation_error_1.ValidationError(`${field} expected to be a boolean.`);
+function isBoolean(options = {}) {
+    return async (field, value) => {
+        if (typeof value === 'boolean') {
+            return value;
+        }
+        const _message = options.message || `${field} expected to be a boolean.`;
+        throw new validation_error_1.ValidationError(_message);
+    };
 }
 exports.isBoolean = isBoolean;
 //# sourceMappingURL=is-boolean.js.map
