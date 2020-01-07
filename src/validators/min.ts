@@ -1,6 +1,7 @@
 import { ValidationError } from '../validation.error';
+import { ValidationFunction } from '../functions';
 
-export function min(options: MinOptions) {
+export function min(options: MinOptions): ValidationFunction {
   const { min, message } = options;
 
   return async(field: string | number, value: number) => {

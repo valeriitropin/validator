@@ -1,4 +1,5 @@
-export declare function isArray(options?: IsArrayOptions): (field: string | number, value: any) => Promise<any[]>;
+import { ValidationFunction } from '../functions';
+export declare function isArray(options?: IsArrayOptions): ValidationFunction;
 export interface IsArrayOptions {
     message?: string;
 }

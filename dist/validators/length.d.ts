@@ -1,4 +1,5 @@
-export declare function length(options: LengthOptions): (field: string | number, value: string) => Promise<string>;
+import { ValidationFunction } from '../functions';
+export declare function length(options: LengthOptions): ValidationFunction;
 export interface LengthOptions {
     length: number;
     message?: string;

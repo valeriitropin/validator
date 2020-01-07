@@ -1,6 +1,7 @@
 import { ValidationError } from '../validation.error';
+import { ValidationFunction } from '../functions';
 
-export function max(options: MaxOptions) {
+export function max(options: MaxOptions): ValidationFunction {
   const { max, message } = options;
 
   return async(field: string | number, value: number) => {

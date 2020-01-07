@@ -1,4 +1,5 @@
-export declare function minLength(options: MinLengthOptions): (field: string | number, value: string) => Promise<string>;
+import { ValidationFunction } from '../functions';
+export declare function minLength(options: MinLengthOptions): ValidationFunction;
 export interface MinLengthOptions {
     min: number;
     message?: string;

@@ -1,4 +1,5 @@
-export declare function isBoolean(options?: IsBooleanOptions): (field: string | number, value: any) => Promise<boolean>;
+import { ValidationFunction } from '../functions';
+export declare function isBoolean(options?: IsBooleanOptions): ValidationFunction;
 export interface IsBooleanOptions {
     message?: string;
 }

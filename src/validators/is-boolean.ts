@@ -1,6 +1,7 @@
 import { ValidationError } from '../validation.error';
+import { ValidationFunction } from '../functions';
 
-export function isBoolean(options: IsBooleanOptions = {}) {
+export function isBoolean(options: IsBooleanOptions = {}): ValidationFunction {
   return async(field: string | number, value: any) => {
     if (typeof value === 'boolean') {
       return value;

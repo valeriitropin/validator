@@ -1,4 +1,5 @@
-export declare function isObject(options?: IsObjectOptions): (field: string | number, value: any) => Promise<any>;
+import { ValidationFunction } from '../functions';
+export declare function isObject(options?: IsObjectOptions): ValidationFunction;
 export interface IsObjectOptions {
     message?: string;
 }

@@ -1,4 +1,5 @@
-export declare function inArray(options: InArrayOptions): (field: string | number, value: any) => Promise<any>;
+import { ValidationFunction } from '../functions';
+export declare function inArray(options: InArrayOptions): ValidationFunction;
 export interface InArrayOptions {
     values: any[];
     message?: string;

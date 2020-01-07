@@ -1,6 +1,7 @@
 import { ValidationError } from '../validation.error';
+import { ValidationFunction } from '../functions';
 
-export function inArray(options: InArrayOptions) {
+export function inArray(options: InArrayOptions): ValidationFunction {
   const { values, message } = options;
 
   return async(field: string | number, value: any) => {

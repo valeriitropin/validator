@@ -1,6 +1,7 @@
 import { ValidationError } from '../validation.error';
+import { ValidationFunction } from '../functions';
 
-export function isString(options: IsStringOptions = {}) {
+export function isString(options: IsStringOptions = {}): ValidationFunction {
   return async(field: string | number, value: any) => {
     if (typeof value === 'string') {
       return value;

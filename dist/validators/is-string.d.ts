@@ -1,4 +1,5 @@
-export declare function isString(options?: IsStringOptions): (field: string | number, value: any) => Promise<string>;
+import { ValidationFunction } from '../functions';
+export declare function isString(options?: IsStringOptions): ValidationFunction;
 export interface IsStringOptions {
     message?: string;
 }

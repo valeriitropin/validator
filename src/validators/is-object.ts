@@ -1,6 +1,7 @@
 import { ValidationError } from '../validation.error';
+import { ValidationFunction } from '../functions';
 
-export function isObject(options: IsObjectOptions = {}) {
+export function isObject(options: IsObjectOptions = {}): ValidationFunction {
   return async(field: string | number, value: any) => {
     if (value !== null && !Array.isArray(value) && typeof value === 'object') {
       return value;
