@@ -1,22 +1,20 @@
-import { ValidationFunction } from '../functions';
+import { format, ValidationFunction } from '../functions';
 import { ValidationError } from '../validation.error';
 
 export function isNumber(options: NumberValidatorOptions = {}): ValidationFunction {
   const {
     integer = false,
-    message,
-    intMessage,
+    message = '{field} expected to be a number.',
+    intMessage = '{field} expected to be an integer number.',
   } = options;
 
   return async(field: string | number, value: any) => {
     if (typeof value !== 'number') {
-      const _message = message || `${field} expected to be a number.`;
-      throw new ValidationError(_message);
+      throw new ValidationError(format(message, { field }));
     }
 
     if (integer && !Number.isInteger(value)) {
-      const _intMessage = intMessage || `${field} expected to be an integer number.`;
-      throw new ValidationError(_intMessage);
+      throw new ValidationError(format(intMessage, { field }));
     }
 
     return value;

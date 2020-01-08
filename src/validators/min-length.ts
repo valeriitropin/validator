@@ -1,16 +1,18 @@
 import { ValidationError } from '../validation.error';
-import { ValidationFunction } from '../functions';
+import { format, ValidationFunction } from '../functions';
 
 export function minLength(options: MinLengthOptions): ValidationFunction {
-  const { min, message } = options;
+  const {
+    min,
+    message = '{field} must be no shorter than {min}.',
+  } = options;
 
   return async(field: string | number, value: string) => {
     if (value.length >= min) {
       return value;
     }
 
-    const _message = message || `${field} must be no shorter than ${min}.`;
-    throw new ValidationError(_message);
+    throw new ValidationError(format(message, { field, min }));
   }
 }
 

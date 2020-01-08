@@ -1,14 +1,15 @@
 import { ValidationError } from '../validation.error';
-import { ValidationFunction } from '../functions';
+import { format, ValidationFunction } from '../functions';
 
 export function isObject(options: IsObjectOptions = {}): ValidationFunction {
+  const { message = '{field} expected to be an object.' } = options;
+
   return async(field: string | number, value: any) => {
     if (value !== null && !Array.isArray(value) && typeof value === 'object') {
       return value;
     }
 
-    const message = options.message || `${field} expected to be an object.`;
-    throw new ValidationError(message);
+    throw new ValidationError(format(message, { field }));
   };
 }
 

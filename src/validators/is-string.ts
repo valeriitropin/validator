@@ -1,14 +1,15 @@
 import { ValidationError } from '../validation.error';
-import { ValidationFunction } from '../functions';
+import { format, ValidationFunction } from '../functions';
 
 export function isString(options: IsStringOptions = {}): ValidationFunction {
+  const { message = '{field} expected to be a string.' } = options;
+
   return async(field: string | number, value: any) => {
     if (typeof value === 'string') {
       return value;
     }
 
-    const message = options.message || `${field} expected to be a string.`;
-    throw new ValidationError(message);
+    throw new ValidationError(format(message, { field }));
   }
 }
 

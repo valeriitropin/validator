@@ -1,14 +1,16 @@
 import { ValidationError } from '../validation.error';
-import { ValidationFunction } from '../functions';
+import { format, ValidationFunction } from '../functions';
 
 export function isArray(options: IsArrayOptions = {}): ValidationFunction {
+  const {
+    message = '{field} expected to be an array.',
+  } = options;
   return async(field: string | number, value: any) => {
     if (Array.isArray(value)) {
       return value;
     }
 
-    const _message = options.message || `${field} expected to be an array.`;
-    throw new ValidationError(_message);
+    throw new ValidationError(format(message, { field }));
   }
 }
 

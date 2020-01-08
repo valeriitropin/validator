@@ -19,4 +19,12 @@ async function resultHandler(result, validationErrors, errors) {
     return Promise.resolve(result);
 }
 exports.resultHandler = resultHandler;
+function format(template, values) {
+    let message = template;
+    for (const key of Object.keys(values)) {
+        message = message.replace(new RegExp('{' + key + '}', 'g'), values[key]);
+    }
+    return message;
+}
+exports.format = format;
 //# sourceMappingURL=functions.js.map

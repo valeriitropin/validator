@@ -1,4 +1,4 @@
-import { ValidationFunction } from '../functions';
+import { format, ValidationFunction } from '../functions';
 import { ValidationError } from '../validation.error';
 
 export function required(options: RequiredValidatorOptions = {}): ValidationFunction {
@@ -6,7 +6,7 @@ export function required(options: RequiredValidatorOptions = {}): ValidationFunc
     continueIfEmpty = false,
     stopOnEmpty = false,
     emptyValues = [undefined, null, ''],
-    message,
+    message = '{field} is required.',
   } = options;
 
   return async(field: string | number, value: any) => {
@@ -16,8 +16,7 @@ export function required(options: RequiredValidatorOptions = {}): ValidationFunc
     }
 
     if (isEmpty && !continueIfEmpty) {
-      const _message = message || `${field} is required.`;
-      throw new ValidationError(_message);
+      throw new ValidationError(format(message, { field }));
     }
 
     return value;
