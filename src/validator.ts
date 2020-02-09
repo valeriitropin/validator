@@ -5,7 +5,7 @@ export class Validator {
   async validate(
     data: { [key: string]: any },
     rules: { [key: string]: ValidationFunction[] },
-    options: { format?: (template: string, values: {[key: string]: any}) => string; }
+    options: { format?: (template: string, values: {[key: string]: any}) => string; } = {}
   ): Promise<any> {
     const args = {
       context: data,
