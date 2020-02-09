@@ -10,4 +10,5 @@ var validation_error_1 = require("./validation.error");
 exports.ValidationError = validation_error_1.ValidationError;
 var functions_1 = require("./functions");
 exports.buildChain = functions_1.buildChain;
+exports.format = functions_1.format;
 //# sourceMappingURL=index.js.map
