@@ -1,5 +1,6 @@
 import { ValidationError } from '../validation.error';
-import { format, ValidationFunction } from '../functions';
+import { ValidationFunction } from '../functions';
+import { ValidatorArguments } from '../validator-arguments';
 
 export function length(options: LengthOptions): ValidationFunction {
   const {
@@ -7,12 +8,12 @@ export function length(options: LengthOptions): ValidationFunction {
     message = '{field} length must be equal {length}.',
   } = options;
 
-  return async(field: string | number, value: string) => {
+  return async(field: string | number, value: string, args: ValidatorArguments) => {
     if (value.length === length) {
       return value;
     }
 
-    throw new ValidationError(format(message, { field, length }));
+    throw new ValidationError(args.format(message, { field, length }));
   }
 }
 

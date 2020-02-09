@@ -1,5 +1,6 @@
 import { ValidationError } from '../validation.error';
-import { format, ValidationFunction } from '../functions';
+import { ValidationFunction } from '../functions';
+import { ValidatorArguments } from '../validator-arguments';
 
 export function maxLength(options: MaxLengthOptions): ValidationFunction {
   const {
@@ -7,12 +8,12 @@ export function maxLength(options: MaxLengthOptions): ValidationFunction {
     message = '{field} must be no longer than {max}.',
   } = options;
 
-  return async(field: string | number, value: string) => {
+  return async(field: string | number, value: string, args: ValidatorArguments) => {
     if (value.length <= max) {
       return value;
     }
 
-    throw new ValidationError(format(message, { field, max }));
+    throw new ValidationError(args.format(message, { field, max }));
   }
 }
 

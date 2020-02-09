@@ -1,5 +1,6 @@
 import { ValidationError } from '../validation.error';
-import { format, ValidationFunction } from '../functions';
+import { ValidationFunction } from '../functions';
+import { ValidatorArguments } from '../validator-arguments';
 
 export function inArray(options: InArrayOptions): ValidationFunction {
   const {
@@ -7,12 +8,12 @@ export function inArray(options: InArrayOptions): ValidationFunction {
     message = '{field} is invalid.',
   } = options;
 
-  return async(field: string | number, value: any) => {
+  return async(field: string | number, value: any, args: ValidatorArguments) => {
     if (values.includes(value)) {
       return value;
     }
 
-    throw new ValidationError(format(message, { field }));
+    throw new ValidationError(args.format(message, { field }));
   }
 }
 

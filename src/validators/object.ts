@@ -1,8 +1,9 @@
 import { buildChain, resultHandler, ValidationFunction } from '../functions';
 import { ValidationError } from '../validation.error';
+import { ValidatorArguments } from '../validator-arguments';
 
 export function object(rules: { [key: string]: ValidationFunction[] }): ValidationFunction {
-  return async(field: string | number, value, args) => {
+  return async(field: string | number, value, args: ValidatorArguments) => {
     const result = {};
     const validationErrors = {};
     const errors: Error[] = [];

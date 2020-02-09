@@ -1,7 +1,7 @@
 import { ValidationFunction } from '../functions';
 
 export function defaultValue(options: DefaultValueOptions): ValidationFunction {
-  return async(field: string | number, value) => {
+  return async(field: string | number, value: any) => {
     if (value === undefined) {
       return options.defaultValue;
     }

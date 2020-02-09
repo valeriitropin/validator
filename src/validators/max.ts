@@ -1,5 +1,6 @@
 import { ValidationError } from '../validation.error';
-import { format, ValidationFunction } from '../functions';
+import { ValidationFunction } from '../functions';
+import { ValidatorArguments } from '../validator-arguments';
 
 export function max(options: MaxOptions): ValidationFunction {
   const {
@@ -7,12 +8,12 @@ export function max(options: MaxOptions): ValidationFunction {
     message = '{field} must be no greater than {max}.',
   } = options;
 
-  return async(field: string | number, value: number) => {
+  return async(field: string | number, value: number, args: ValidatorArguments) => {
     if (value <= max) {
       return value;
     }
 
-    throw new ValidationError(format(message, { field, max }));
+    throw new ValidationError(args.format(message, { field, max }));
   }
 }
 

@@ -1,8 +1,14 @@
 import { ValidationError } from './validation.error';
+import { ValidatorArguments } from './validator-arguments';
 
-export type ValidationFunction = (field: string | number, value: any, args?: any) => Promise<any>;
+export type ValidationFunction = (field: string | number, value: any, args: ValidatorArguments) => Promise<any>;
 
-export function buildChain(field: string | number, value: any, rules: ValidationFunction[], args?: any): Promise<any> {
+export function buildChain(
+  field: string | number,
+  value: any,
+  rules: ValidationFunction[],
+  args: ValidatorArguments
+): Promise<any> {
   let promise = Promise.resolve(value);
   for (const rule of rules) {
     promise = promise.then(_value => rule(field, _value, args));

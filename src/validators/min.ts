@@ -1,5 +1,6 @@
 import { ValidationError } from '../validation.error';
-import { format, ValidationFunction } from '../functions';
+import { ValidationFunction } from '../functions';
+import { ValidatorArguments } from '../validator-arguments';
 
 export function min(options: MinOptions): ValidationFunction {
   const {
@@ -7,12 +8,12 @@ export function min(options: MinOptions): ValidationFunction {
     message = '{field} must be no less than {min}.',
   } = options;
 
-  return async(field: string | number, value: number) => {
+  return async(field: string | number, value: number, args: ValidatorArguments) => {
     if (value >= min) {
       return value;
     }
 
-    throw new ValidationError(format(message, { field, min }));
+    throw new ValidationError(args.format(message, { field, min }));
   }
 }
 

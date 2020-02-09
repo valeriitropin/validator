@@ -4,5 +4,9 @@ export declare class Validator {
         [key: string]: any;
     }, rules: {
         [key: string]: ValidationFunction[];
+    }, options: {
+        format?: (template: string, values: {
+            [key: string]: any;
+        }) => string;
     }): Promise<any>;
 }

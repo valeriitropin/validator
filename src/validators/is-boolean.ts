@@ -1,15 +1,16 @@
 import { ValidationError } from '../validation.error';
-import { format, ValidationFunction } from '../functions';
+import { ValidationFunction } from '../functions';
+import { ValidatorArguments } from '../validator-arguments';
 
 export function isBoolean(options: IsBooleanOptions = {}): ValidationFunction {
   const { message = '{field} expected to be a boolean.' } = options;
 
-  return async(field: string | number, value: any) => {
+  return async(field: string | number, value: any, args: ValidatorArguments) => {
     if (typeof value === 'boolean') {
       return value;
     }
 
-    throw new ValidationError(format(message, { field }));
+    throw new ValidationError(args.format(message, { field }));
   }
 }
 
