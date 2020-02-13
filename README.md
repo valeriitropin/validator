@@ -1,4 +1,12 @@
 # Validator
+Simple validator with the following features:
+- supports async validation
+- easily extendable with own rules
+- supports validation of complex structures including nested objects and arrays
+- doesn't modify incoming data
+- can catch non-validation errors
+- returns only values covered by validators
+- support filters and data modifiers
 
 ## Table of Contents
 
@@ -209,10 +217,46 @@ Checks if value (must be an array of a string) has length no greater than `max`.
 Validates object with passed rules.
 
 ### required
-```typescript
-{ firstName: [required()] }
+```typescript{ firstName: [required()] }
 ```
 Checks if value is not empty. `undefined`, `null` and `''` are considered as empty values by default.
 
 ## Implement own validation function
-TBD
+Validation function is simple function which must have the following interface:
+```typescript
+(field: string | number, value: any, args: ValidatorArguments) => Promise<any>
+```
+Validation function must return promise resolved with validated value if validation passes or throw `ValidationError` otherwise.
+To stop validation chain you may throw any value. If thrown value is not equal `undefined` this value will be added into result.
+
+Lets implement validator which check if number is divided by integer number without remainder:
+```typescript
+function isDividedBy(options: IsDividedByOption) {
+  const {
+    message = '{field} must be divided by {divider} without remainder.',
+    divider
+  } = options;
+
+  return async (field: string | number, value: any, args: ValidatorArguments) => {
+    if (value % divider === 0) {
+      return value;
+    }
+
+    throw new ValidationError(args.format(message, { field, divider }));
+  }
+}
+
+interface IsDividedByOption {
+  message: string;
+  divider: number;
+}
+```
+
+`isDividedBy` wrapper function is unnecessary and is used only to pass additional options.
+
+Also you may implement something like filter:
+```typescript
+async function trim(field: string | number, value: any, args: ValidatorArguments) => {
+  return value.trim();
+}
+```
