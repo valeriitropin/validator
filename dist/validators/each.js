@@ -16,8 +16,9 @@ function each(rules) {
                     return validationErrors[index] = error.messages;
                 }
                 if (error instanceof Error) {
-                    errors.push(error);
+                    return errors.push(error);
                 }
+                result[index] = error;
             });
             promises.push(promise);
         });

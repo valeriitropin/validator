@@ -16,8 +16,9 @@ function object(rules) {
                     return validationErrors[_field] = error.messages;
                 }
                 if (error instanceof Error) {
-                    errors.push(error);
+                    return errors.push(error);
                 }
+                result[_field] = error;
             });
             promises.push(promise);
         }

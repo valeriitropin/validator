@@ -18,8 +18,10 @@ export function object(rules: { [key: string]: ValidationFunction[] }): Validati
           }
 
           if (error instanceof Error) {
-            errors.push(error);
+            return errors.push(error);
           }
+
+          result[_field] = error;
         });
       promises.push(promise);
     }
