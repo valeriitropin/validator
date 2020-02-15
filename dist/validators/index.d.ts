@@ -1,3 +1,4 @@
+export * from './array';
 export * from './default-value';
 export * from './each';
 export * from './in-array';
