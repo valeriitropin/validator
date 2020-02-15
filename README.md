@@ -13,6 +13,7 @@ Simple validator with the following features:
  * [Installation](#installation)
  * [Usage](#usage)
  * [Available validators](#available-validators)
+    * [array](#array)
     * [defaultValue](#defaultvalue)
     * [each](#each)
     * [inArray](#inarray)
@@ -37,7 +38,7 @@ Simple validator with the following features:
 ```typescript
 import {
   ValidationError,
-  Validator,
+  validateObject,
   required,
   isString,
   maxLength,
@@ -84,8 +85,8 @@ const rules = {
     }),
   ],
 };
-const validator = new Validator();
-validator.validate(data, rules)
+
+validateObject(data, rules)
   .then(validatedData => console.log(validatedData))
   .catch(error => {
     if (error instanceof ValidationError) {
@@ -99,11 +100,29 @@ validator.validate(data, rules)
 
 ## Available validators
 
+### array
+```typescript
+{
+  arr: array([
+    [ required(), isNumber({ integer: true }) ],
+    [
+      required(),
+      isObject(),
+      object({
+        firstName: [ required() ],
+        lastName: [ required() ],
+      }),
+    ],
+  ]),
+}
+```
+Validates elements of array with specific set of rules for separate element.
+
 ### defaultValue
 ```typescript
 { checked: [defaultValue({ defaultValue: false })] }
 ```
-`defaultValue` sets value `defaultValue` if original value is undefined.
+Sets value `defaultValue` if original value is undefined.
 
 ### each
 ```typescript
