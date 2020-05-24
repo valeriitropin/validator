@@ -25,9 +25,11 @@ Simple validator with the following features:
     * [length](#length)
     * [min](#min)
     * [minLength](#minlength)
+    * [nullable](#nullable)
     * [max](#max)
     * [maxLength](#maxlength)
     * [object](#object)
+    * [optional](#optional)
     * [required](#required)
  * [Creating own validator](#creating-own-validators)
 
@@ -198,6 +200,18 @@ Checks if value no less then `min`.
 ```
 Checks if value (must be an array of a string) has length no less than `min`.
 
+### nullable
+```typescript
+{
+  phoneNumber: [
+    nullable(),
+    isString(),
+    maxLength({ max: 20 })
+  ]
+}
+```
+Checks if passed value is `null`. In positive case it stops validation chain and set `null` for this field into result otherwise continue validation.
+
 ### max
 ```typescript
 // Checks if age is no more than 100
@@ -235,8 +249,19 @@ Checks if value (must be an array of a string) has length no greater than `max`.
 ```
 Validates object with passed rules.
 
+### optional
+```typescript
+{ age: [
+  optional(),
+  isNumber({ integer: true }),
+  min({ min: 18 }),
+]}
+```
+Stops validation chain if value is `undefined`.
+
 ### required
-```typescript{ firstName: [required()] }
+```typescript
+{ firstName: [required()] }
 ```
 Checks if value is not empty. `undefined`, `null` and `''` are considered as empty values by default.
 
