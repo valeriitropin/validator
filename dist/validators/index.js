@@ -17,7 +17,9 @@ __export(require("./max"));
 __export(require("./max-length"));
 __export(require("./min"));
 __export(require("./min-length"));
+__export(require("./nullable"));
 __export(require("./object"));
+__export(require("./optional"));
 __export(require("./regex"));
 __export(require("./required"));
 //# sourceMappingURL=index.js.map

@@ -12,6 +12,8 @@ export * from './max';
 export * from './max-length';
 export * from './min';
 export * from './min-length';
+export * from './nullable';
 export * from './object';
+export * from './optional';
 export * from './regex';
 export * from './required';
