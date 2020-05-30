@@ -23,13 +23,14 @@ Simple validator with the following features:
     * [isObject](#isobject)
     * [isString](#isstring)
     * [length](#length)
+    * [max](#max)
+    * [maxLength](#maxlength)
     * [min](#min)
     * [minLength](#minlength)
     * [nullable](#nullable)
-    * [max](#max)
-    * [maxLength](#maxlength)
     * [object](#object)
     * [optional](#optional)
+    * [regex](#regex)
     * [required](#required)
  * [Creating own validator](#creating-own-validators)
 
@@ -182,6 +183,24 @@ Check is value is a string.
 ```
 Checks if value has length equal passed `length`.
 
+### max
+```typescript
+// Checks if age is no more than 100
+{ age: [max({ max: 100 })] }
+```
+Checks if value is no greater then `max`.
+
+### maxLength
+```typescript
+{
+    // Checks if firstName is no longer than 50 characters
+    firstName: [maxLength({ max: 50 })],
+    // Checks if ids has no more than 5 elements
+    ids: [maxLength({ max: 5 })]
+}
+```
+Checks if value (must be an array of a string) has length no greater than `max`.
+
 ### min
 ```typescript
 // Checks if age is no less than 18
@@ -212,24 +231,6 @@ Checks if value (must be an array of a string) has length no less than `min`.
 ```
 Checks if passed value is `null`. In positive case it stops validation chain and set `null` for this field into result otherwise continue validation.
 
-### max
-```typescript
-// Checks if age is no more than 100
-{ age: [max({ max: 100 })] }
-```
-Checks if value is no greater then `max`.
-
-### maxLength
-```typescript
-{
-    // Checks if firstName is no longer than 50 characters
-    firstName: [maxLength({ max: 50 })],
-    // Checks if ids has no more than 5 elements
-    ids: [maxLength({ max: 5 })]
-}
-```
-Checks if value (must be an array of a string) has length no greater than `max`.
-
 ### object
 ```typescript
   contacts: [
@@ -247,7 +248,7 @@ Checks if value (must be an array of a string) has length no greater than `max`.
   ],
 }
 ```
-Validates object with passed rules.
+Validates an object with passed rules.
 
 ### optional
 ```typescript
@@ -258,6 +259,15 @@ Validates object with passed rules.
 ]}
 ```
 Stops validation chain if value is `undefined`.
+
+### regex
+```typescript
+{ email: [
+  required(),
+  regex({ pattern: /^\S+@\S+$/})
+]}
+```
+Checks if passed value matches a regular expression.
 
 ### required
 ```typescript
@@ -273,7 +283,7 @@ Validation function is simple function which must have the following interface:
 Validation function must return promise resolved with validated value if validation passes or throw `ValidationError` otherwise.
 To stop validation chain you may throw any value. If thrown value is not equal `undefined` this value will be added into result.
 
-Lets implement validator which check if number is divided by integer number without remainder:
+Let's implement validator which check if number is divided by integer number without remainder:
 ```typescript
 function isDividedBy(options: IsDividedByOption) {
   const {
@@ -298,7 +308,7 @@ interface IsDividedByOption {
 
 `isDividedBy` wrapper function is unnecessary and is used only to pass additional options.
 
-Also you may implement something like filter:
+Also, you may implement something like filter:
 ```typescript
 async function trim(field: string | number, value: any, args: ValidatorArguments) => {
   return value.trim();
