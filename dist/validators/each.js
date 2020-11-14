@@ -8,8 +8,9 @@ function each(rules) {
         const validationErrors = {};
         const errors = [];
         const promises = [];
+        const _args = Object.assign({}, args, { context: value });
         value.forEach((_value, index) => {
-            const promise = functions_1.buildChain(index, _value, rules, args)
+            const promise = functions_1.buildChain(index, _value, rules, _args)
                 .then(validatedValue => result[index] = validatedValue)
                 .catch(error => {
                 if (error instanceof validation_error_1.ValidationError) {

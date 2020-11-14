@@ -8,9 +8,10 @@ export function array(rules: ValidationFunction[][]): ValidationFunction {
     const validationErrors: {} = {};
     const errors: Error[] = [];
     const promises: Promise<any>[] = [];
+    const _args = {...args, context: value};
 
     rules.forEach((_rules: any, index: number) => {
-      const promise = buildChain(index, value[index], _rules, args)
+      const promise = buildChain(index, value[index], _rules, _args)
         .then(validatedValue => result[index] = validatedValue)
         .catch(error => {
           if (error instanceof ValidationError) {

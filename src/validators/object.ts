@@ -8,9 +8,10 @@ export function object(rules: { [key: string]: ValidationFunction[] }): Validati
     const validationErrors = {};
     const errors: Error[] = [];
     const promises: Promise<any>[] = [];
+    const _args = {...args, context: value};
 
     for (const _field of Object.keys(rules)) {
-      const promise = buildChain(_field, value[_field], rules[_field], args)
+      const promise = buildChain(_field, value[_field], rules[_field], _args)
         .then(_value => result[_field] = _value)
         .catch(error => {
           if (error instanceof ValidationError) {
