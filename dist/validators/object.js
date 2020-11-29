@@ -19,7 +19,9 @@ function object(rules) {
                 if (error instanceof Error) {
                     return errors.push(error);
                 }
-                result[_field] = error;
+                if (error !== undefined) {
+                    result[_field] = error;
+                }
             });
             promises.push(promise);
         }

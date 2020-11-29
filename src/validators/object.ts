@@ -21,7 +21,9 @@ export function object(rules: { [key: string]: ValidationFunction[] }): Validati
             return errors.push(error);
           }
 
-          result[_field] = error;
+          if (error !== undefined) {
+            result[_field] = error;
+          }
         });
       promises.push(promise);
     }
