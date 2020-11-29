@@ -1,5 +1,5 @@
 import { FormatterInterface } from './formatter-interface';
-import { messages as predefinedMessages } from '../data/messages';
+import { messages as predefinedMessages } from './data/messages';
 
 export function stringFormatter(messages?: {[key: string]: string}): FormatterInterface {
   const _messages = messages || predefinedMessages;

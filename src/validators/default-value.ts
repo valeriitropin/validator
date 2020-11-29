@@ -1,4 +1,4 @@
-import { ValidationFunction } from '../functions';
+import { ValidationFunction } from '../types';
 
 export function defaultValue(options: DefaultValueOptions): ValidationFunction {
   return async(field: string | number, value: any) => {

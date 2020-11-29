@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const messages_1 = require("../data/messages");
+const messages_1 = require("./data/messages");
 function stringFormatter(messages) {
     const _messages = messages || messages_1.messages;
     return function formatter(validator, field, params) {

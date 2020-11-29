@@ -1,6 +1,5 @@
-import { buildChain, resultHandler, ValidationFunction } from '../functions';
-import { ValidationError } from '../validation.error';
-import { ValidatorArguments } from '../validator-arguments';
+import { buildChain, resultHandler } from '../functions';
+import { ValidatorArguments, ValidationError, ValidationFunction } from '../types';
 
 export function each(rules: ValidationFunction[]): ValidationFunction {
   return async(field: string | number, value: any[], args: ValidatorArguments) => {

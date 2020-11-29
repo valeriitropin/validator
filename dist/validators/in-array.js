@@ -1,13 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const validation_error_1 = require("../validation.error");
+const types_1 = require("../types");
 function inArray(options) {
     const { values, name = 'inArray' } = options;
     return async (field, value, args) => {
         if (values.includes(value)) {
             return value;
         }
-        throw new validation_error_1.ValidationError(args.format(name, field, {}));
+        throw new types_1.ValidationError(args.format(name, field, {}));
     };
 }
 exports.inArray = inArray;

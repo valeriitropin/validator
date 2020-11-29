@@ -1,5 +1,4 @@
-import { ValidationFunction } from './functions';
-import { ArrayValidatorOptions, ValidatorOptions } from './validator-options';
+import { ArrayValidatorOptions, ValidationFunction, ValidatorOptions } from './types';
 export declare function validateObject(data: {
     [key: string]: any;
 }, rules: {

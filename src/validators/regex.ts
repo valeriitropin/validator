@@ -1,6 +1,4 @@
-import { ValidationFunction } from '../functions';
-import { ValidationError } from '../validation.error';
-import { ValidatorArguments } from '../validator-arguments';
+import { ValidatorArguments, ValidationError, ValidationFunction } from '../types';
 
 export function regex(options: RegexOptions): ValidationFunction {
   const {pattern, name = 'regex'} = options;

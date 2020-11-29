@@ -7,4 +7,4 @@ class ValidationError extends Error {
     }
 }
 exports.ValidationError = ValidationError;
-//# sourceMappingURL=validation.error.js.map
+//# sourceMappingURL=validation-error.js.map

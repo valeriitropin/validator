@@ -1,7 +1,4 @@
-import { ValidationError } from './validation.error';
-import { ValidatorArguments } from './validator-arguments';
-
-export type ValidationFunction = (field: string | number, value: any, args: ValidatorArguments) => Promise<any>;
+import { ValidatorArguments, ValidationError, ValidationFunction } from './types';
 
 export function buildChain(
   field: string | number,

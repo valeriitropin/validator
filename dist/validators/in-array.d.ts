@@ -1,4 +1,4 @@
-import { ValidationFunction } from '../functions';
+import { ValidationFunction } from '../types';
 export declare function inArray(options: InArrayOptions): ValidationFunction;
 export interface InArrayOptions {
     name?: string;

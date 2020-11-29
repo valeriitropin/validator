@@ -1,4 +1,4 @@
-import { FormatterInterface } from './formatters';
+import { FormatterInterface } from '../formatters';
 
 export interface ValidatorOptions {
   format?: FormatterInterface;

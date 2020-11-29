@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./validator"));
 __export(require("./validators"));
 __export(require("./formatters"));
-var validation_error_1 = require("./validation.error");
-exports.ValidationError = validation_error_1.ValidationError;
+var types_1 = require("./types");
+exports.ValidationError = types_1.ValidationError;
 var functions_1 = require("./functions");
 exports.buildChain = functions_1.buildChain;
 //# sourceMappingURL=index.js.map

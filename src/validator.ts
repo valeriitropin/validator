@@ -1,8 +1,6 @@
-import { ValidationFunction } from './functions';
 import { array, each, isArray, isObject, maxLength, minLength, object } from './validators';
-import { ArrayValidatorOptions, ValidatorOptions } from './validator-options';
+import { ArrayValidatorOptions, ValidationError, ValidationFunction, ValidatorOptions } from './types';
 import { stringFormatter } from './formatters';
-import { ValidationError } from './validation.error';
 
 export async function validateObject(
   data: {[key: string]: any},

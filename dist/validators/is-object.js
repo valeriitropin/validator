@@ -1,13 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const validation_error_1 = require("../validation.error");
+const types_1 = require("../types");
 function isObject(options = {}) {
     const { name = 'isObject' } = options;
     return async (field, value, args) => {
         if (value !== null && !Array.isArray(value) && typeof value === 'object') {
             return value;
         }
-        throw new validation_error_1.ValidationError(args.format(name, field, {}));
+        throw new types_1.ValidationError(args.format(name, field, {}));
     };
 }
 exports.isObject = isObject;

@@ -1,6 +1,4 @@
-import { ValidationError } from '../validation.error';
-import { ValidationFunction } from '../functions';
-import { ValidatorArguments } from '../validator-arguments';
+import { ValidatorArguments, ValidationError, ValidationFunction } from '../types';
 
 export function min(options: MinOptions): ValidationFunction {
   const {min, name = 'min'} = options;

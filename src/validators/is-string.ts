@@ -1,10 +1,9 @@
-import { ValidationError } from '../validation.error';
-import { ValidationFunction } from '../functions';
+import { ValidatorArguments, ValidationError, ValidationFunction } from '../types';
 
 export function isString(options: IsStringOptions = {}): ValidationFunction {
   const {name = 'isString'} = options;
 
-  return async(field: string | number, value: any, args) => {
+  return async(field: string | number, value: any, args: ValidatorArguments) => {
     if (typeof value === 'string') {
       return value;
     }

@@ -1,6 +1,4 @@
-import { ValidationError } from '../validation.error';
-import { ValidationFunction } from '../functions';
-import { ValidatorArguments } from '../validator-arguments';
+import { ValidatorArguments, ValidationError, ValidationFunction } from '../types';
 
 export function max(options: MaxOptions): ValidationFunction {
   const {max, name = 'max'} = options;

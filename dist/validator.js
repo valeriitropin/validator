@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const validators_1 = require("./validators");
+const types_1 = require("./types");
 const formatters_1 = require("./formatters");
-const validation_error_1 = require("./validation.error");
 async function validateObject(data, rules, options = {}) {
     const args = {
         context: data,
@@ -36,8 +36,8 @@ async function validateArray(data, rules, options = {}) {
 }
 exports.validateArray = validateArray;
 function errorHandler(error) {
-    if (error instanceof validation_error_1.ValidationError) {
-        throw new validation_error_1.ValidationError(error.messages.input);
+    if (error instanceof types_1.ValidationError) {
+        throw new types_1.ValidationError(error.messages.input);
     }
     throw error;
 }

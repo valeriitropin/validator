@@ -1,2 +1,2 @@
-import { ValidationFunction } from '../functions';
+import { ValidationFunction } from '../types';
 export declare function each(rules: ValidationFunction[]): ValidationFunction;

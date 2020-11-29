@@ -1,14 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const validation_error_1 = require("../validation.error");
+const types_1 = require("../types");
 function isNumber(options = {}) {
     const { integer = false, name } = options;
     return async (field, value, args) => {
         if (typeof value !== 'number') {
-            throw new validation_error_1.ValidationError(args.format(name || 'isNumber', field, {}));
+            throw new types_1.ValidationError(args.format(name || 'isNumber', field, {}));
         }
         if (integer && !Number.isInteger(value)) {
-            throw new validation_error_1.ValidationError(args.format(name || 'isIntegerNumber', field, {}));
+            throw new types_1.ValidationError(args.format(name || 'isIntegerNumber', field, {}));
         }
         return value;
     };

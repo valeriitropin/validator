@@ -1,4 +1,4 @@
-import { ValidationFunction } from '../functions';
+import { ValidationFunction } from '../types';
 
 export function nullable(): ValidationFunction {
   return async(field: string | number, value: any) => {

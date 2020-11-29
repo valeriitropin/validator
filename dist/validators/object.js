@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const functions_1 = require("../functions");
-const validation_error_1 = require("../validation.error");
+const types_1 = require("../types");
 function object(rules) {
     return async (field, value, args) => {
         const result = {};
@@ -13,7 +13,7 @@ function object(rules) {
             const promise = functions_1.buildChain(_field, value[_field], rules[_field], _args)
                 .then(_value => result[_field] = _value)
                 .catch(error => {
-                if (error instanceof validation_error_1.ValidationError) {
+                if (error instanceof types_1.ValidationError) {
                     return validationErrors[_field] = error.messages;
                 }
                 if (error instanceof Error) {
