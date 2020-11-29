@@ -1,11 +1,12 @@
 import { ValidationFunction } from './functions';
-import { array, each, isArray, isObject, object } from './validators';
-import { ValidatorOptions } from './validator-options';
+import { array, each, isArray, isObject, maxLength, minLength, object } from './validators';
+import { ArrayValidatorOptions, ValidatorOptions } from './validator-options';
 import { stringFormatter } from './formatters';
+import { ValidationError } from './validation.error';
 
 export async function validateObject(
-  data: { [key: string]: any },
-  rules: { [key: string]: ValidationFunction[] },
+  data: {[key: string]: any},
+  rules: {[key: string]: ValidationFunction[]},
   options: ValidatorOptions = {}
 ): Promise<any> {
   const args = {
@@ -13,36 +14,44 @@ export async function validateObject(
     format: options.format || stringFormatter(),
   };
 
-  isObject()('input', data, args);
-
-  return object(rules)('input', data, args);
+  return object({input: [isObject(), object(rules)]})('input', {input: data}, args)
+    .then(({input}) => input)
+    .catch(errorHandler);
 }
 
 export async function validateEach(
   data: any[],
   rules: ValidationFunction[],
-  options: ValidatorOptions = {}
+  options: ValidatorOptions & ArrayValidatorOptions = {}
 ) {
-  const args = {
-    context: data,
-    format: options.format || stringFormatter(),
-  };
-  await isArray()('input', data, args);
+  const args = {context: data, format: options.format || stringFormatter()};
 
-  return each(rules)('input', data, args);
+  const _rules = [isArray()];
+  if (options.minLength) {
+    _rules.push(minLength({min: options.minLength}));
+  }
+  if (options.maxLength) {
+    _rules.push(maxLength({max: options.maxLength}));
+  }
+  _rules.push(each(rules));
+
+  return validateObject({input: data}, {input: _rules}, args)
+    .then(({input}) => input)
+    .catch(errorHandler);
 }
 
-export async function validateArray(
-  data: any[],
-  rules: ValidationFunction[][],
-  options: ValidatorOptions = {}
-) {
-  const args = {
-    context: data,
-    format: options.format || stringFormatter(),
-  };
+export async function validateArray(data: any[], rules: ValidationFunction[][], options: ValidatorOptions = {}) {
+  const args = {context: data, format: options.format || stringFormatter()};
 
-  await isArray()('input', data, args);
+  return validateObject({input: data}, {input: [isArray(), array(rules)]}, args)
+    .then(({input}) => input)
+    .catch(errorHandler);
+}
 
-  return array(rules)('input', data, args);
+function errorHandler(error: Error) {
+  if (error instanceof ValidationError) {
+    throw new ValidationError((error.messages as {[key: string]: string}).input);
+  }
+
+  throw error;
 }
