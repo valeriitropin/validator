@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 function defaultValue(options) {
     return async (field, value) => {
         if (value === undefined) {
-            return options.defaultValue;
+            return options.value;
         }
         return value;
     };
