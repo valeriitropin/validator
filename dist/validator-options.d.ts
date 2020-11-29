@@ -1,5 +1,4 @@
+import { FormatterInterface } from './formatters';
 export interface ValidatorOptions {
-    format?: (template: string, values: {
-        [key: string]: any;
-    }) => string;
+    format?: FormatterInterface;
 }

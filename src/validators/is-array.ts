@@ -3,19 +3,17 @@ import { ValidationFunction } from '../functions';
 import { ValidatorArguments } from '../validator-arguments';
 
 export function isArray(options: IsArrayOptions = {}): ValidationFunction {
-  const {
-    message = '{field} expected to be an array.',
-  } = options;
+  const {name = 'isArray'} = options;
 
   return async(field: string | number, value: any, args: ValidatorArguments) => {
     if (Array.isArray(value)) {
       return value;
     }
 
-    throw new ValidationError(args.format(message, { field }));
+    throw new ValidationError(args.format(name, field, {}));
   }
 }
 
 export interface IsArrayOptions {
-  message?: string;
+  name?: string;
 }

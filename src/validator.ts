@@ -1,6 +1,7 @@
-import { format, ValidationFunction } from './functions';
+import { ValidationFunction } from './functions';
 import { array, each, isArray, isObject, object } from './validators';
 import { ValidatorOptions } from './validator-options';
+import { stringFormatter } from './formatters';
 
 export async function validateObject(
   data: { [key: string]: any },
@@ -9,7 +10,7 @@ export async function validateObject(
 ): Promise<any> {
   const args = {
     context: data,
-    format: options.format || format,
+    format: options.format || stringFormatter(),
   };
 
   isObject()('input', data, args);
@@ -24,7 +25,7 @@ export async function validateEach(
 ) {
   const args = {
     context: data,
-    format: options.format || format,
+    format: options.format || stringFormatter(),
   };
   await isArray()('input', data, args);
 
@@ -38,7 +39,7 @@ export async function validateArray(
 ) {
   const args = {
     context: data,
-    format: options.format || format,
+    format: options.format || stringFormatter(),
   };
 
   await isArray()('input', data, args);

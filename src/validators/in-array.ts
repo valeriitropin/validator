@@ -3,21 +3,18 @@ import { ValidationFunction } from '../functions';
 import { ValidatorArguments } from '../validator-arguments';
 
 export function inArray(options: InArrayOptions): ValidationFunction {
-  const {
-    values,
-    message = '{field} is invalid.',
-  } = options;
+  const {values, name = 'inArray'} = options;
 
   return async(field: string | number, value: any, args: ValidatorArguments) => {
     if (values.includes(value)) {
       return value;
     }
 
-    throw new ValidationError(args.format(message, { field }));
+    throw new ValidationError(args.format(name, field, {}));
   }
 }
 
 export interface InArrayOptions {
+  name?: string;
   values: any[];
-  message?: string;
 }

@@ -3,21 +3,18 @@ import { ValidationFunction } from '../functions';
 import { ValidatorArguments } from '../validator-arguments';
 
 export function maxLength(options: MaxLengthOptions): ValidationFunction {
-  const {
-    max,
-    message = '{field} must be no longer than {max}.',
-  } = options;
+  const {max, name = 'maxLength'} = options;
 
   return async(field: string | number, value: string, args: ValidatorArguments) => {
     if (value.length <= max) {
       return value;
     }
 
-    throw new ValidationError(args.format(message, { field, max }));
+    throw new ValidationError(args.format(name, field, {max}));
   }
 }
 
 export interface MaxLengthOptions {
   max: number;
-  message?: string;
+  name?: string;
 }

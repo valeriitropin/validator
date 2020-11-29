@@ -2,12 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const validation_error_1 = require("../validation.error");
 function isBoolean(options = {}) {
-    const { message = '{field} expected to be a boolean.' } = options;
+    const { name = 'isBoolean' } = options;
     return async (field, value, args) => {
         if (typeof value === 'boolean') {
             return value;
         }
-        throw new validation_error_1.ValidationError(args.format(message, { field }));
+        throw new validation_error_1.ValidationError(args.format(name, field, {}));
     };
 }
 exports.isBoolean = isBoolean;

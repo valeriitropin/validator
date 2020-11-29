@@ -3,17 +3,17 @@ import { ValidationFunction } from '../functions';
 import { ValidatorArguments } from '../validator-arguments';
 
 export function isBoolean(options: IsBooleanOptions = {}): ValidationFunction {
-  const { message = '{field} expected to be a boolean.' } = options;
+  const {name = 'isBoolean'} = options;
 
   return async(field: string | number, value: any, args: ValidatorArguments) => {
     if (typeof value === 'boolean') {
       return value;
     }
 
-    throw new ValidationError(args.format(message, { field }));
+    throw new ValidationError(args.format(name, field, {}));
   }
 }
 
 export interface IsBooleanOptions {
-  message?: string;
+  name?: string;
 }

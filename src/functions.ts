@@ -25,12 +25,3 @@ export async function resultHandler(result: any, validationErrors: { [key: strin
   }
   return Promise.resolve(result);
 }
-
-export function format(template: string, values: {[key: string]: any}) {
-  let message: string = template;
-  for (const key of Object.keys(values)) {
-    message = message.replace(new RegExp('{' + key + '}', 'g'), values[key]);
-  }
-
-  return message;
-}

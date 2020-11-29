@@ -1,4 +1,6 @@
+import { FormatterInterface } from './formatters';
+
 export interface ValidatorArguments {
-  format: (template: string, values: {[key: string]: any}) => any;
+  format: FormatterInterface;
   context?: any;
 }
