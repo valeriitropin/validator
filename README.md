@@ -12,6 +12,7 @@ Simple validator with the following features:
 
  * [Installation](#installation)
  * [Usage](#usage)
+ * [Validation functions](#validation-functions)
  * [Available validators](#available-validators)
     * [array](#array)
     * [defaultValue](#defaultvalue)
@@ -32,7 +33,8 @@ Simple validator with the following features:
     * [optional](#optional)
     * [regex](#regex)
     * [required](#required)
- * [Creating own validator](#creating-own-validators)
+ * [Formatters](#formatters)
+ * [Implement own validator](#implement-own-validator)
 
 ## Installation
 `npm i --save tsvalidator`
@@ -100,32 +102,34 @@ validateObject(data, rules)
     // Handle any other error
   });
 ```
+## Validation functions
+TBD
 
 ## Available validators
 
 ### array
 ```typescript
 {
-  arr: array([
-    [ required(), isNumber({ integer: true }) ],
-    [
-      required(),
-      isObject(),
-      object({
-        firstName: [ required() ],
-        lastName: [ required() ],
-      }),
-    ],
-  ]),
+  arr: [
+    required(),
+    array([
+      [required(), isNumber({ integer: true })],
+      [required(), isString(), maxLength({max: 50})],
+    ]),
+  ],
 }
 ```
-Validates elements of array with specific set of rules for separate element.
+Validates elements of array with specific set of rules for each element.
 
 ### defaultValue
 ```typescript
-{ checked: [defaultValue({ defaultValue: false })] }
+{
+  checked: [
+    defaultValue({value: true}),
+  ],
+}
 ```
-Sets value `defaultValue` if original value is undefined.
+Sets `value` if original value is undefined.
 
 ### each
 ```typescript
@@ -134,69 +138,105 @@ Sets value `defaultValue` if original value is undefined.
     each([
       required(),
       isNumber(),
-      min({ min: 1 }),
+      min({min: 1}),
     ]),
   ],
 }
 ```
-Applies passed rules to each elements of value.
+Applies passed rules to each element of value.
 
 ### inArray
 ```typescript
-{ checked: [inArray({ values: [0, 1]})] }
+{
+  checked: [
+    inArray({values: [0, 1]}),
+  ],
+}
 ```
 Checks if passed value is in `values`.
 
 ### isArray
 ```typescript
-{ ids: [isArray()] }
+{
+  ids: [
+    isArray(),
+  ],
+}
 ```
 Checks if value is an array.
 
 ### isBoolean
 ```typescript
-{ checked: [isBoolean()] }
+{
+  checked: [
+    isBoolean(),
+  ],
+}
 ```
 Checks if value is boolean value.
 
 ### isNumber
 ```typescript
-{ age: [isNumber()] }
+{
+  age: [
+    isNumber(),
+  ],
+}
 ```
-Checks if value is a number.
+Checks if value is a number. You may check if number is integer passing `integer: true` via options. 
 
 ### isObject
 ```typescript
-{ contacts: [isObject()] }
+{
+  contacts: [
+    isObject(),
+  ],
+}
 ```
-Checks if value is an object
+Checks if value is an object.
 
 ### isString
 ```typescript
-{ firstName: [isString()] }
+{
+  firstName: [
+    isString(),
+  ],
+}
 ```
 Check is value is a string.
 
 ### length
 ```typescript
-{ firstName: [length({ length: 10 })] }
+{
+  firstName: [
+    length({length: 10}),
+  ],
+}
 ```
 Checks if value has length equal passed `length`.
 
 ### max
 ```typescript
 // Checks if age is no more than 100
-{ age: [max({ max: 100 })] }
+{
+  age: [
+    max({max: 100}),
+  ],
+}
 ```
 Checks if value is no greater then `max`.
 
 ### maxLength
 ```typescript
 {
-    // Checks if firstName is no longer than 50 characters
-    firstName: [maxLength({ max: 50 })],
-    // Checks if ids has no more than 5 elements
-    ids: [maxLength({ max: 5 })]
+  // Checks if firstName is no longer than 50 characters
+  firstName: [
+    maxLength({max: 50}),
+  ],
+  // Checks if array of ids has no more than 5 elements
+  ids: [
+    maxLength({max: 5}),
+  ],
 }
 ```
 Checks if value (must be an array of a string) has length no greater than `max`.
@@ -204,17 +244,25 @@ Checks if value (must be an array of a string) has length no greater than `max`.
 ### min
 ```typescript
 // Checks if age is no less than 18
-{ age: [min({ min: 18 })] }
+{
+  age: [
+    min({min: 18}),
+  ],
+}
 ```
 Checks if value no less then `min`.
 
 ### minLength
 ```typescript
 {
-    // firstName must be no shorter than 4 characters
-    firstName: [minLength({ min: 5 })],
-    // ids must have at least 1 element
-    ids: [minLength({ min: 1 })]
+  // firstName must be no shorter than 4 characters
+  firstName: [
+    minLength({min: 5}),
+  ],
+  // ids must have at least 1 element
+  ids: [
+    minLength({min: 1}),
+  ],
 }
 ```
 Checks if value (must be an array of a string) has length no less than `min`.
@@ -225,14 +273,15 @@ Checks if value (must be an array of a string) has length no less than `min`.
   phoneNumber: [
     nullable(),
     isString(),
-    maxLength({ max: 20 })
-  ]
+    maxLength({max: 20}),
+  ],
 }
 ```
 Checks if passed value is `null`. In positive case it stops validation chain and set `null` for this field into result otherwise continue validation.
 
 ### object
 ```typescript
+{
   contacts: [
     object({
       phone: [
@@ -242,7 +291,7 @@ Checks if passed value is `null`. In positive case it stops validation chain and
       skype: [
         required(),
         isString(),
-        maxLength(30),
+        maxLength({max: 30}),
       ],
     }),
   ],
@@ -252,30 +301,41 @@ Validates an object with passed rules.
 
 ### optional
 ```typescript
-{ age: [
-  optional(),
-  isNumber({ integer: true }),
-  min({ min: 18 }),
-]}
+{
+  age: [
+    optional(),
+    isNumber({ integer: true }),
+    min({ min: 18 }),
+  ],
+}
 ```
 Stops validation chain if value is `undefined`.
 
 ### regex
 ```typescript
-{ email: [
-  required(),
-  regex({ pattern: /^\S+@\S+$/})
-]}
+{
+  email: [
+    required(),
+    regex({pattern: /^\S+@\S+$/}),
+  ],
+}
 ```
 Checks if passed value matches a regular expression.
 
 ### required
 ```typescript
-{ firstName: [required()] }
+{
+  firstName: [
+    required(),
+  ],
+}
 ```
 Checks if value is not empty. `undefined`, `null` and `''` are considered as empty values by default.
 
-## Implement own validation function
+## Formatters
+TBD
+
+## Implement own validator
 Validation function is simple function which must have the following interface:
 ```typescript
 (field: string | number, value: any, args: ValidatorArguments) => Promise<any>
@@ -285,24 +345,16 @@ To stop validation chain you may throw any value. If thrown value is not equal `
 
 Let's implement validator which check if number is divided by integer number without remainder:
 ```typescript
-function isDividedBy(options: IsDividedByOption) {
-  const {
-    message = '{field} must be divided by {divider} without remainder.',
-    divider
-  } = options;
+function isDividedBy(options: IsDividedByOption): ValidationFunction {
+  const {divider, name = ''} = options;
 
   return async (field: string | number, value: any, args: ValidatorArguments) => {
     if (value % divider === 0) {
       return value;
     }
 
-    throw new ValidationError(args.format(message, { field, divider }));
+    throw new ValidationError(args.format(name, field, {divider}));
   }
-}
-
-interface IsDividedByOption {
-  message: string;
-  divider: number;
 }
 ```
 
@@ -310,7 +362,7 @@ interface IsDividedByOption {
 
 Also, you may implement something like filter:
 ```typescript
-async function trim(field: string | number, value: any, args: ValidatorArguments) => {
+async function trim(field: string | number, value: any, args: ValidatorArguments) {
   return value.trim();
 }
 ```
