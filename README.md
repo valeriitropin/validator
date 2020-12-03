@@ -1,4 +1,4 @@
-# Validator
+# tsvalidator
 Validator with the following features:
 - supports async validation
 - easily extendable with own rules
@@ -39,7 +39,7 @@ Validator with the following features:
     * [objectFormatter](#objectformatter)
     * [stringFormatter](#stringformatter)
     * [Custom formatter](#custom-formatter)
- * [Implement own validator](#implement-own-validator)
+ * [Creating own validator](#creating-own-validator)
 
 ## Installation
 `npm i --save tsvalidator`
@@ -446,8 +446,8 @@ validateObject(data, rules, {format: objectFormatter})
   .catch(({messages}) => console.log(messages)); // {name: {required: true}, age: {isNumber: true}}
 ```
 
-## Implement own validator
-Validation function is simple function which must have the following interface:
+## Creating own validator
+Validator is a function which must have the following interface:
 ```typescript
 (field: string | number, value: any, args: ValidatorArguments) => Promise<any>
 ```
