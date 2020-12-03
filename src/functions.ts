@@ -15,7 +15,7 @@ export function buildChain(
 
 export async function resultHandler(result: any, validationErrors: { [key: string]: string }, errors: Error[]) {
   if (errors.length) {
-    return Promise.reject(errors);
+    return Promise.reject(errors[0]);
   }
   if (Object.keys(validationErrors).length > 0) {
     return Promise.reject(new ValidationError(validationErrors));
