@@ -5,11 +5,11 @@ export function isNumber(options: NumberValidatorOptions = {}): ValidationFuncti
 
   return async(field: string | number, value: any, args: ValidatorArguments) => {
     if (typeof value !== 'number') {
-      throw new ValidationError(args.format(name || 'isNumber', field, {}));
+      throw new ValidationError(args.format(name || 'isNumber', field, {integer}));
     }
 
     if (integer && !Number.isInteger(value)) {
-      throw new ValidationError(args.format(name || 'isIntegerNumber', field, {}));
+      throw new ValidationError(args.format(name || 'isIntegerNumber', field, {integer}));
     }
 
     return value;

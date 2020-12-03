@@ -428,22 +428,22 @@ interface `(validator: string, field: string | number, params: {[key: string]: a
 ### Formatters usage
 All validation functions allow you to change default formatter:
 ```
-import { isNumber, isString, maxLength, optional, required, validateObject, objectFormatter } from 'tsvalidator';
+import { isNumber, isString, maxLength, optional, required, validateObject, objectFormatter, min } from 'tsvalidator';
 
 const rules = {
   name: [required(), isString(), maxLength({max: 50})],
-  age: [required(), isNumber({integer: true})],
+  age: [required(), isNumber({integer: true}), min({min: 50})],
   nickname: [optional(), isString(), maxLength({max: 16})],
 };
 const data = {
-  age: '21'
+  age: 21
 };
 
 validateObject(data, rules)
   .catch(({messages}) => console.log(messages)); // {name: 'name is required.', age: 'age must be a number.'}
 
 validateObject(data, rules, {format: objectFormatter})
-  .catch(({messages}) => console.log(messages)); // {name: {required: true}, age: {isNumber: true}}
+  .catch(({messages}) => console.log(messages)); // {name: {required: {}}, age: {min: { min: 50 }}}
 ```
 
 ## Creating own validator

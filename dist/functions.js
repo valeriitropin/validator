@@ -11,7 +11,7 @@ function buildChain(field, value, rules, args) {
 exports.buildChain = buildChain;
 async function resultHandler(result, validationErrors, errors) {
     if (errors.length) {
-        return Promise.reject(errors);
+        return Promise.reject(errors[0]);
     }
     if (Object.keys(validationErrors).length > 0) {
         return Promise.reject(new types_1.ValidationError(validationErrors));
