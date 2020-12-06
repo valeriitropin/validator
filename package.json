@@ -1,16 +1,21 @@
 {
   "name": "tsvalidator",
   "version": "0.0.0",
-  "description": "***",
+  "description": "Flexible async validator",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "dependencies": {},
   "devDependencies": {
     "typescript": "^3.4.5"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
   },
   "author": "Valerii Tropin",
   "license": "MIT",
