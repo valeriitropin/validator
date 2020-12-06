@@ -471,9 +471,13 @@ function isDividedBy(options: IsDividedByOption): ValidationFunction {
 
 `isDividedBy` wrapper function is unnecessary and is used only to pass additional options.
 
-Also, you may implement something like filter:
+Also, you may implement something like filter or modifier:
 ```typescript
 async function trim(field: string | number, value: any, args: ValidatorArguments) {
   return value.trim();
+}
+
+async function toLowerCase(field: string | number, value: any, args: ValidatorArguments) {
+  return value.toLowerCase();
 }
 ```
