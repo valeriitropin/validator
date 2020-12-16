@@ -1,4 +1,5 @@
 export const messages = {
+  equal: '{field} must be equal to "{comparableValue}".',
   inArray: '{field} is invalid.',
   isArray: '{field} must be an array.',
   isBoolean: '{field} must be a boolean.',

@@ -1,6 +1,7 @@
 export * from './array';
 export * from './default-value';
 export * from './each';
+export * from './equal';
 export * from './in-array';
 export * from './is-array';
 export * from './is-boolean';
