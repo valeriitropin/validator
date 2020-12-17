@@ -19,6 +19,7 @@ Validator with the following features:
     * [array](#array)
     * [defaultValue](#defaultvalue)
     * [each](#each)
+    * [equal](#equal)
     * [inArray](#inarray)
     * [isArray](#isarray)
     * [isBoolean](#isboolean)
@@ -223,6 +224,20 @@ Sets `value` if original value is undefined.
 }
 ```
 Applies passed rules to each element of value.
+
+### Equal
+```typescript
+const rules = {
+   password: [required(), isString()],
+   passwordConfirmation: [equal({compareField: 'password'})],
+};
+
+const _rules = {
+   password: [required(), isString()],
+   passwordConfirmation: [equal({compareValue: 'password'})],
+};
+```
+Checks if input value is strictly equal to object property or compare value. 
 
 ### inArray
 ```typescript
