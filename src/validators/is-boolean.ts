@@ -8,7 +8,7 @@ export function isBoolean(options: IsBooleanOptions = {}): ValidationFunction {
       return value;
     }
 
-    throw new ValidationError(args.format(name, field, {}));
+    throw new ValidationError(args.format(name, args.label || field, {}));
   }
 }
 

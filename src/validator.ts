@@ -1,18 +1,25 @@
 import { array, each, isArray, isObject, maxLength, minLength, object } from './validators';
-import { ArrayValidatorOptions, ValidationError, ValidationFunction, ValidatorOptions } from './types';
+import {
+  ArrayValidatorOptions,
+  ObjectValidatorOptions,
+  ValidationError,
+  ValidationFunction,
+  ValidatorOptions
+} from './types';
 import { stringFormatter } from './formatters';
 
 export async function validateObject(
   data: {[key: string]: any},
   rules: {[key: string]: ValidationFunction[]},
-  options: ValidatorOptions = {}
+  options: ValidatorOptions & ObjectValidatorOptions = {}
 ): Promise<any> {
-  const args = {
-    context: data,
-    format: options.format || stringFormatter(),
-  };
+  const {format, label, labels = {}} = options;
+  const args = {context: data, format: format || stringFormatter()};
 
-  return object({input: [isObject(), object(rules)]})('input', {input: data}, args)
+  return object(
+    {input: [isObject(), object(rules, {labels})]},
+    {labels: label ? {input: label} : {}},
+  )('input', {input: data}, args)
     .then(({input}) => input)
     .catch(errorHandler);
 }
@@ -22,14 +29,19 @@ export async function validateEach(
   rules: ValidationFunction[],
   options: ValidatorOptions & ArrayValidatorOptions = {}
 ) {
-  const args = {context: data, format: options.format || stringFormatter()};
+  const {format, label, maxLength: max, minLength: min} = options;
+  const args = {
+    context: data,
+    format: format || stringFormatter(),
+    label,
+  };
 
   const _rules = [isArray()];
-  if (options.minLength) {
-    _rules.push(minLength({min: options.minLength}));
+  if (min) {
+    _rules.push(minLength({min}));
   }
-  if (options.maxLength) {
-    _rules.push(maxLength({max: options.maxLength}));
+  if (max) {
+    _rules.push(maxLength({max}));
   }
   _rules.push(each(rules));
 
@@ -39,7 +51,12 @@ export async function validateEach(
 }
 
 export async function validateArray(data: any[], rules: ValidationFunction[][], options: ValidatorOptions = {}) {
-  const args = {context: data, format: options.format || stringFormatter()};
+  const {format, label} = options;
+  const args = {
+    context: data,
+    format: format || stringFormatter(),
+    label,
+  };
 
   return validateObject({input: data}, {input: [isArray(), array(rules)]}, args)
     .then(({input}) => input)

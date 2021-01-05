@@ -8,7 +8,7 @@ export function min(options: MinOptions): ValidationFunction {
       return value;
     }
 
-    throw new ValidationError(args.format(name, field, {min}));
+    throw new ValidationError(args.format(name, args.label || field, {min}));
   }
 }
 

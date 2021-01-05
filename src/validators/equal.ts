@@ -15,7 +15,7 @@ export function equal(options: EqualOptions = {}): ValidationFunction {
       return value;
     }
 
-    throw new ValidationError(args.format(name, field, {comparableValue: compareFieldOrValue}));
+    throw new ValidationError(args.format(name, args.label || field, {comparableValue: compareFieldOrValue}));
   };
 }
 

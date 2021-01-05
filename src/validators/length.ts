@@ -8,7 +8,7 @@ export function length(options: LengthOptions): ValidationFunction {
       return value;
     }
 
-    throw new ValidationError(args.format(name, field, {length}));
+    throw new ValidationError(args.format(name, args.label || field, {length}));
   }
 }
 

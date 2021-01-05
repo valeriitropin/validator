@@ -8,7 +8,7 @@ export function inArray(options: InArrayOptions): ValidationFunction {
       return value;
     }
 
-    throw new ValidationError(args.format(name, field, {}));
+    throw new ValidationError(args.format(name, args.label || field, {}));
   }
 }
 

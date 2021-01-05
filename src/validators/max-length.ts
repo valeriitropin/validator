@@ -8,7 +8,7 @@ export function maxLength(options: MaxLengthOptions): ValidationFunction {
       return value;
     }
 
-    throw new ValidationError(args.format(name, field, {max}));
+    throw new ValidationError(args.format(name, args.label || field, {max}));
   }
 }
 

@@ -5,7 +5,7 @@ export function required(options: RequiredValidatorOptions = {}): ValidationFunc
 
   return async(field: string | number, value: any, args: ValidatorArguments) => {
     if (emptyValues.includes(value)) {
-      throw new ValidationError(args.format(name, field, {}));
+      throw new ValidationError(args.format(name, args.label || field, {}));
     }
 
     return value;
