@@ -1,12 +1,14 @@
-# tsvalidator
+# tsvalidated
+
 Validator with the following features:
-- supports async validation
-- easily extendable with own rules
+- async
+- extendable with own rules
 - supports validation of complex structures including nested objects and arrays
 - doesn't modify incoming data
 - can catch non-validation errors
 - returns only values covered by validators
-- support filters and data modifiers
+- supports filters and data modifiers
+- customizable error formatting
 
 ## Table of Contents
  * [Installation](#installation)
@@ -43,7 +45,7 @@ Validator with the following features:
  * [Creating own validator](#creating-own-validator)
 
 ## Installation
-`npm i --save tsvalidator`
+`npm i --save tsvalidated`
 
 ## Usage
 ```typescript
@@ -109,6 +111,7 @@ validateObject(data, rules)
     // Handle any other error
   });
 ```
+
 ## Validation functions
 
 ### validateObject
@@ -484,7 +487,7 @@ function isDividedBy(options: IsDividedByOption): ValidationFunction {
 }
 ```
 
-`isDividedBy` wrapper function is unnecessary and is used only to pass additional options.
+`isDividedBy` wrapper function is unnecessary in common case and is used here only to pass additional options.
 
 Also, you may implement something like filter or modifier:
 ```typescript
